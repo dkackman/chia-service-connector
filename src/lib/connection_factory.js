@@ -35,8 +35,8 @@ const DefaultServicePorts = {
  */
 function createChiaConnection(
   serviceName,
-  host,
-  root,
+  host = "localhost",
+  root = "~/.chia/mainnet",
   timeoutSeconds = 30,
   portMap = DefaultServicePorts
 ) {
