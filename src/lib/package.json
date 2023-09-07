@@ -1,6 +1,6 @@
 {
   "name": "chia-service-connector",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Package for managing connections to Chia RPC services",
   "main": "index.js",
   "scripts": {

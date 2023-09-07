@@ -33,7 +33,7 @@ const DefaultServicePorts = {
  * @param {object} portMap - The port map for the services. Defaults to DefaultServicePorts.
  * @returns {ChiaConnection} The connection object
  */
-function createConnection(
+function createChiaConnection(
   serviceName,
   host,
   root,
@@ -64,5 +64,5 @@ function createConnection(
 module.exports = {
   ServiceNames,
   DefaultServicePorts,
-  createConnection,
+  createChiaConnection,
 };

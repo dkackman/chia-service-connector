@@ -4,7 +4,7 @@ const ChiaConnection = require("./chia_connection");
 const {
   ServiceNames,
   DefaultServicePorts,
-  createConnection,
+  createChiaConnection,
 } = require("./connection_factory");
 
 let chiaRoot = null;
@@ -26,7 +26,7 @@ const getChiaRoot = () => {
 
 module.exports = {
   getChiaRoot,
-  createConnection,
+  createChiaConnection,
   ChiaConnection,
   ServiceNames,
   DefaultServicePorts,
