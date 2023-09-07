@@ -1,0 +1,21 @@
+{
+  "name": "chia-service-connector",
+  "version": "0.0.1",
+  "description": "Package for managing connections to Chia RPC services",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chia",
+    "rpc",
+    "crypto"
+  ],
+  "devDependencies": {
+    "eslint": "^8.21.0",
+    "jsdoc": "^4.0.2",
+    "jshint": "^2.13.5"
+  },
+  "author": "dkackman",
+  "license": "Apache-2.0"
+}
