@@ -7,7 +7,7 @@ coauthored with [@MichaelTaylor3d](https://github.com/MichaelTaylor3D)
 
 ## Introduction
 
-Package for managing connections to Chia RPC services. Intended to encapsulate finding CHIA_ROOT, implement chia conventions, and provide a simple interface for describing the
+Package for managing connections to Chia RPC services. Intended to encapsulate finding CHIA_ROOT, implement environment chia conventions, and provide a simple interface for describing the
 connection with the service. All in a reusable manner that isn't coupled to a specific communication library or pattern.
 
 ## Examples
