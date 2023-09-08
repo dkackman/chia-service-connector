@@ -1,0 +1,1 @@
+declare module 'chia-service-connector';
