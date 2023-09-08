@@ -24,10 +24,15 @@ const getChiaRoot = () => {
   return chiaRoot;
 };
 
+__resetChiaRoot = () => {
+  chiaRoot = null;
+}; // for testing
+
 module.exports = {
   getChiaRoot,
   createChiaConnection,
   ChiaConnection,
   ServiceNames,
   DefaultServicePorts,
+  __resetChiaRoot,
 };
