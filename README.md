@@ -1,5 +1,6 @@
 # chia-service-connector
 
+[![Node.js CI](https://github.com/dkackman/chia-service-connector/actions/workflows/node.js.yml/badge.svg)](https://github.com/dkackman/chia-service-connector/actions/workflows/node.js.yml)
 [![CodeQL](https://github.com/dkackman/chia-service-connector/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/dkackman/chia-service-connector/actions/workflows/github-code-scanning/codeql)
 <a href="https://www.npmjs.com/package/chia-service-connector"><img src="https://img.shields.io/npm/dt/chia-service-connector.svg?sanitize=true" alt="Total Downloads"></a>
 
