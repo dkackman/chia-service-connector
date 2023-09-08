@@ -11,7 +11,7 @@ const ChiaConnection = require("./chia_connection");
  * @param {string} configFilePath - Optional full path to a chia config file
  * @returns Connection details.
  */
-export default function loadUIConfig(configFilePath) {
+function loadUIConfig(configFilePath) {
     const config = readConfigFile(configFilePath);
 
     const selfHostname = _.get(config, "ui.daemon_host", "localhost");
@@ -52,3 +52,7 @@ function readConfigFile(configFilePath) {
 
     return yaml.load(fs.readFileSync(configFilePath, "utf8"));
 }
+
+module.exports = {
+    loadUIConfig,
+};
