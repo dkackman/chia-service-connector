@@ -1,0 +1,30 @@
+{
+    "name": "tests",
+    "version": "0.3.7",
+    "description": "Tests for a chia service connector",
+    "scripts": {
+        "test": "mocha *.test.js --exit",
+        "debug": "mocha *.test.* -g '_DEBUG_' --exit"
+    },
+    "type": "module",
+    "author": "dkackman",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/dkackman/chia-service-connector/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dkackman/chia-service-connector.git"
+    },
+    "homepage": "https://github.com/dkackman/chia-service-connector",
+    "readme": "https://github.com/dkackman/chia-service-connectorl#readme",
+    "devDependencies": {
+        "eslint": "^8.21.0",
+        "jshint": "^2.13.5"
+    },
+    "dependencies": {
+        "chai": "^4.3.6",
+        "mocha": "^10.0.0",
+        "chia-service-connector": "file:../lib/package.json"
+    }
+}
