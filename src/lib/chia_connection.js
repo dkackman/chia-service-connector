@@ -28,12 +28,12 @@ class ChiaConnection {
    * or Https connection. This includes reading the
    * cert and key files from disk
    */
-  createClientOptions() {
+  createClientOptions(keepAlive = true) {
     return {
-      rejectUnauthorized: false,
-      keepAlive: true,
-      key: fs.readFileSync(untildify(this.key_path)),
-      cert: fs.readFileSync(untildify(this.cert_path)),
+      rejectUnauthorized: false, // this is needed for the self signed certs
+      keepAlive: keepAlive,
+      key: this.key,
+      cert: this.cert,
     };
   }
 
@@ -44,8 +44,23 @@ class ChiaConnection {
     }
     return `https://${this.host}:${this.port}`;
   }
-}
 
+  get key() {
+    if (this._key === undefined) {
+      this._key = fs.readFileSync(untildify(this.key_path));
+    }
+
+    return this._key;
+  }
+
+  get cert() {
+    if (this._cert === undefined) {
+      this._cert = fs.readFileSync(untildify(this.cert_path));
+    }
+
+    return this._cert;
+  }
+}
 /**
  * Resolves paths like ~/.chia/mainnet to their fully qualified equivalent in a platform safe manner.
  * @param {string} pathWithTilde - A path that may or may not be rooted in the user's home folder.
