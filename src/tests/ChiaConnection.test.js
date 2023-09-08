@@ -9,26 +9,26 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const expect = chai.expect;
 
 describe("chia-service-connector", () => {
-  describe("ChiaConnection", () => {
-    it("should resolve cert files", () => {
-      // arrange
-      const chia_root = path.resolve(`${__dirname}/test_data`);
-      const connection = new ChiaConnection(
-        "daemon",
-        "localhost",
-        55400,
-        `${chia_root}/config/ssl/daemon/private_daemon.key`,
-        `${chia_root}/config/ssl/daemon/private_daemon.crt`,
-        10
-      );
+    describe("ChiaConnection", () => {
+        it("should resolve cert files", () => {
+            // arrange
+            const chia_root = path.resolve(`${__dirname}/test_data`);
+            const connection = new ChiaConnection(
+                "daemon",
+                "localhost",
+                55400,
+                `${chia_root}/config/ssl/daemon/private_daemon.key`,
+                `${chia_root}/config/ssl/daemon/private_daemon.crt`,
+                10
+            );
 
-      // act
-      const key = connection.key;
-      const cert = connection.cert;
+            // act
+            const key = connection.key;
+            const cert = connection.cert;
 
-      // assert
-      expect(key.toString()).to.equal("___TEST___");
-      expect(cert.toString()).to.equal("___TEST___");
+            // assert
+            expect(key.toString()).to.equal("___TEST___");
+            expect(cert.toString()).to.equal("___TEST___");
+        });
     });
-  });
 });
