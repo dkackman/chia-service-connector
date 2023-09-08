@@ -1,4 +1,4 @@
-const { getChiaRoot } = require("./index");
+const { getChiaRoot } = require("./get_chia_root");
 const ChiaConnection = require("./chia_connection");
 
 const ServiceNames = {
@@ -29,22 +29,17 @@ const DefaultServicePorts = {
  * @param {string} serviceName - The service for the command. One of the ServiceNames constants.
  * @param {string} host - The host (ip or hostname) of the chia service.
  * @param {string} root - The path to the chia root directory. (can also be a path to the ssl directory)
- * @param {int} timeoutSeconds - The timeout in seconds for the connection.
+ * @param {number} timeoutSeconds - The timeout in seconds for the connection.
  * @param {object} portMap - The port map for the services. Defaults to DefaultServicePorts.
  * @returns {ChiaConnection} The connection object
  */
 function createChiaConnection(
   serviceName,
   host = "localhost",
-  root = "~/.chia/mainnet",
+  root = getChiaRoot(), // defaults to env variable or ~/.chia/mainnet
   timeoutSeconds = 30,
   portMap = DefaultServicePorts
 ) {
-  // if the user didn't specify a root, try to find it
-  if (root === undefined) {
-    root = getChiaRoot();
-  }
-
   // if the root isn't an ssl path, assume it's the
   // chia root and append the ssl path
   if (!root.endsWith("/config/ssl")) {
