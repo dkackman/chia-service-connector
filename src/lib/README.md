@@ -9,11 +9,11 @@ coauthored with [@MichaelTaylor3d](https://github.com/MichaelTaylor3D)
 ## Introduction
 
 Package for managing connections to Chia RPC services. Intended to encapsulate finding CHIA_ROOT, implement environment chia conventions, and provide a simple interface for describing the
-connection with the service. All in a reusable manner that isn't coupled to a specific communication library or pattern.
+connection with the service. This simplifies finding the cert files, in a reusable manner, decoupled from aby specific communication library or pattern.
 
 ## Examples
 
-`createChiaConnection` and `createChiaConnectionFromConfig` are the main entry points for the package. They return a `ChiaConnection` object that can be used with a `https` or `wss` library to make RPC calls to the service. Unless specified otherwise, all methods respect the `CHIA_ROOT` environment variable or default to `~/.chia/mainnet`.
+`createChiaConnection` and `createChiaConnectionFromConfig` are the main entry points for the package. They return a `ChiaConnection` object that can be used with a `https` or `wss` library to make RPC calls to the service. Unless specified bt the caller, all methods respect the `CHIA_ROOT` environment variable or default to `~/.chia/mainnet`.
 
 ### The simplest example
 
@@ -29,14 +29,14 @@ const configConnection = connector.createChiaConnectionFromConfig("wallet");
 
 ### A slightly less simple example
 
-Create a connection to the chia daemon on another machine, using the default `~/.chia/mainnet/`.
+Create a connection to the chia daemon on another machine, using the default `~/.chia/mainnet/` location for certs.
 
 ```javascript
 const connector = require('chia-service-connector');
 
 const connection = connector.createChiaConnection("daemon", "192.168.1.155");
 
-const configConnection = connector.createChiaConnectionFromConfig("~/path/to/config.yaml", "daemon");
+const configConnection = connector.createChiaConnectionFromConfig("daemon", "~/path/to/some/config.yaml");
 ```
 
 ### All of the arguments for createChiaConnection
@@ -69,6 +69,19 @@ const connection = new connector.ChiaConnection(
     60,                      // timeout in seconds
 );
 ```
+
+### Members of the ChiaConnection object
+
+- `service` - the service name
+- `host` - the host name or ip address
+- `port` - the port number
+- `timeout_seconds` - the timeout in seconds for the connection
+- `cert_path` - the full path to the cert file
+- `key_path` - the full path to the key file
+- `cert` - the contents of the cert file as a `Buffer`
+- `key` - the contents of the key file as a `Buffer`
+- `serviceAddress` - the formatted address to the service, including protocol, host, and port
+- `createClientOptions()` - a function that returns an object that can be used with the `https` or `wss` libraries or `https agent`
 
 ### Using the connection
 
@@ -130,3 +143,5 @@ const walletConnection = connector.createChiaConnectionFromConfig("wallet");
 const wallet = new ChiaHttps(walletConnection);
 console.log(await wallet.get_wallet_balance({ wallet_id: 1}))
 ```
+
+Or whatever other chia library you like.
