@@ -78,17 +78,10 @@ function createChiaConnectionFromConfig(
 
     if (sectionName === ServiceNames.Daemon) {
         // pass undefined because the daemon configuration is at the document root
-        return getConnectionFromConfig(
-            undefined,
-            configFilePath,
-            DefaultServicePorts
-        );
+        sectionName = undefined;
     }
-    return getConnectionFromConfig(
-        sectionName,
-        configFilePath,
-        DefaultServicePorts
-    );
+
+    return getConnectionFromConfig(sectionName, configFilePath);
 }
 
 module.exports = {
