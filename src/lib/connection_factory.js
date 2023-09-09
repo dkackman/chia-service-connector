@@ -1,7 +1,9 @@
 const { getChiaRoot } = require("./get_chia_root");
+const { getConnectionFromConfig } = require("./chia_config");
 const ChiaConnection = require("./chia_connection");
+const path = require("path");
 
-const ServiceNames = {
+ServiceNames = {
     Daemon: "daemon",
     FullNode: "full_node",
     Wallet: "wallet",
@@ -56,8 +58,42 @@ function createChiaConnection(
     );
 }
 
+/**
+ * Loads th  connection details from a config file
+ * @param {string} sectionName - The config section name to load. (Will be a ServiceName or "ui")
+ * @param {string} configFilePath - Optional full path to a chia config file - will default to getChiaRoot
+ * @returns Connection details.
+ */
+function createChiaConnectionFromConfig(
+    sectionName,
+    configFilePath = path.resolve(`${getChiaRoot()}/config/config.yaml`)
+) {
+    if (
+        sectionName !== "ui" &&
+        sectionName !== "daemon" &&
+        !(sectionName in ServiceNames)
+    ) {
+        throw new Error(`Invalid section name: ${sectionName}`);
+    }
+
+    if (sectionName === ServiceNames.Daemon) {
+        // pass undefined because the daemon configuration is at the document root
+        return getConnectionFromConfig(
+            undefined,
+            configFilePath,
+            DefaultServicePorts
+        );
+    }
+    return getConnectionFromConfig(
+        sectionName,
+        configFilePath,
+        DefaultServicePorts
+    );
+}
+
 module.exports = {
     ServiceNames,
     DefaultServicePorts,
     createChiaConnection,
+    createChiaConnectionFromConfig,
 };

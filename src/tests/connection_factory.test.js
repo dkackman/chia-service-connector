@@ -1,6 +1,15 @@
 import chai from "chai";
-import { createChiaConnection, __resetChiaRoot } from "chia-service-connector";
+import {
+    createChiaConnection,
+    createChiaConnectionFromConfig,
+    __resetChiaRoot,
+} from "chia-service-connector";
 import path from "path";
+import { fileURLToPath } from "url";
+
+/* jshint ignore:start */
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+/* jshint ignore:end */
 
 const expect = chai.expect;
 
@@ -40,6 +49,59 @@ describe("chia-service-connector", () => {
 
             // cleanup
             __resetChiaRoot();
+        });
+    });
+    describe("createChiaConnectionFromConfig", () => {
+        it("should find the getChiaRoot config by default", () => {
+            // arrange
+            __resetChiaRoot();
+            process.env.CHIA_ROOT = path.resolve(`${__dirname}/test_data`);
+            const expected = ""; //path.resolve(process.env.CHIA_ROOT);
+
+            // act
+            const connection = createChiaConnectionFromConfig("ui");
+
+            // assert
+            expect(connection.key_path.startsWith(expected)).to.equal(true);
+
+            // cleanup
+            delete process.env.CHIA_ROOT;
+            __resetChiaRoot();
+        });
+        it("should find the user supplied config even if environment var is set", () => {
+            // arrange
+            __resetChiaRoot();
+            process.env.CHIA_ROOT = path.resolve(`___BAD___`);
+            const expected = path.resolve(
+                `${__dirname}/test_data/config/config.yaml`
+            );
+
+            // act
+            const connection = createChiaConnectionFromConfig("ui", expected);
+
+            // assert
+            expect(connection.key_path.startsWith(__dirname)).to.equal(true);
+
+            // cleanup
+            delete process.env.CHIA_ROOT;
+            __resetChiaRoot();
+        });
+        it("should find the root daemon section", () => {
+            // arrange
+            const configFilePath = path.resolve(
+                `${__dirname}/test_data/config/config.yaml`
+            );
+
+            // act
+            const connection = createChiaConnectionFromConfig(
+                "daemon",
+                configFilePath
+            );
+
+            // assert
+            expect(connection.key_path.startsWith(__dirname)).to.equal(true);
+
+            // cleanup
         });
     });
 });
