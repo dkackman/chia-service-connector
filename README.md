@@ -13,7 +13,7 @@ connection with the service. All in a reusable manner that isn't coupled to a sp
 
 ## Examples
 
-`createChiaConnection` is the main entry point for the package. It returns a `ChiaConnection` object that can be used with a `https` or `wss` library to make RPC calls to the service.
+`createChiaConnection` and `createChiaConnectionFromConfig` are the main entry points for the package. They return a `ChiaConnection` object that can be used with a `https` or `wss` library to make RPC calls to the service. Unless specified otherwise, all methods respect the `CHIA_ROOT` environment variable or default to `~/.chia/mainnet`.
 
 ### The simplest example
 
@@ -23,6 +23,8 @@ This creates a connection to the wallet service using the default connection par
 const connector = require('chia-service-connector');
 
 const connection = connector.createChiaConnection("wallet");
+
+const configConnection = connector.createChiaConnectionFromConfig("wallet");
 ```
 
 ### A slightly less simple example
@@ -33,6 +35,8 @@ Create a connection to the chia daemon on another machine, using the default `~/
 const connector = require('chia-service-connector');
 
 const connection = connector.createChiaConnection("daemon", "192.168.1.155");
+
+const configConnection = connector.createChiaConnectionFromConfig("~/path/to/config.yaml", "daemon");
 ```
 
 ### All of the arguments for createChiaConnection
@@ -51,7 +55,7 @@ const connection = connector.createChiaConnection(
 
 ### Create the ChiaConnection object directly
 
-The `ChiaConnection` object can be created directly, but it is recommended to use `createChiaConnection` instead.
+The `ChiaConnection` object can be created directly, but it is recommended to use create methods instead since they accommodate the most environment and conventional values.
 
 ```javascript
 const connector = require('chia-service-connector');
@@ -110,3 +114,21 @@ const socket = new ws.WebSocket(
     connection.createClientOptions()
 );
 ```
+
+Or the [chia-daemon package](https://www.npmjs.com/package/chia-daemon)
+
+```javascript
+import { createChiaConnection, createChiaConnectionFromConfig } from 'chia-service-connector';
+import { ChiaDaemon, ChiaHttps } from 'chia-daemon';
+
+const daemonConnection = connector.createChiaConnection("daemon");
+const daemon = new ChiaDaemon(daemonConnection);
+await demon.connect();
+console.log(await daemon.services.full_node.get_blockchain_state())
+
+const walletConnection = connector.createChiaConnectionFromConfig("wallet");
+const wallet = new ChiaHttps(walletConnection);
+console.log(await wallet.get_wallet_balance({ wallet_id: 1}))
+```
+
+Or whatever other chia library you like.
