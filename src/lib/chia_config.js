@@ -22,8 +22,8 @@ function getConnectionFromConfig(sectionName, configFilePath) {
 
     // these apply for everything but the daemon and ui
     let serviceName = sectionName;
-    let port = _.get(config, `${serviceName}.rpc_port`, 0);
     let host = config.self_hostname;
+    let port = _.get(config, `${serviceName}.rpc_port`, 0);
     let certPath = _.get(config, `${serviceName}.ssl.private_crt`);
     let keyPath = _.get(config, `${serviceName}.ssl.private_key`);
 

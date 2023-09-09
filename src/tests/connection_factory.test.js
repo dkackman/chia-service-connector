@@ -78,9 +78,12 @@ describe("chia-service-connector", () => {
 
             // act
             const connection = createChiaConnectionFromConfig("ui", expected);
+            const key = connection.key;
+            const cert = connection.cert;
 
             // assert
-            expect(connection.key_path.startsWith(__dirname)).to.equal(true);
+            expect(key.toString()).to.equal("___TEST___");
+            expect(cert.toString()).to.equal("___TEST___");
 
             // cleanup
             delete process.env.CHIA_ROOT;
@@ -97,9 +100,32 @@ describe("chia-service-connector", () => {
                 "daemon",
                 configFilePath
             );
+            const key = connection.key;
+            const cert = connection.cert;
 
             // assert
-            expect(connection.key_path.startsWith(__dirname)).to.equal(true);
+            expect(key.toString()).to.equal("___TEST___");
+            expect(cert.toString()).to.equal("___TEST___");
+
+            // cleanup
+        });
+        it("should find the wallet section", () => {
+            // arrange
+            const configFilePath = path.resolve(
+                `${__dirname}/test_data/config/config.yaml`
+            );
+
+            // act
+            const connection = createChiaConnectionFromConfig(
+                "wallet",
+                configFilePath
+            );
+            const key = connection.key;
+            const cert = connection.cert;
+
+            // assert
+            expect(key.toString()).to.equal("___TEST___");
+            expect(cert.toString()).to.equal("___TEST___");
 
             // cleanup
         });
