@@ -1,8 +1,0 @@
-{
-    "name": "chia-service-connector-project",
-    "workspaces": [
-        "lib/",
-        "tests/"
-    ],
-    "version": "0.0.3"
-}
