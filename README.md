@@ -134,12 +134,12 @@ Or the [chia-daemon package](https://www.npmjs.com/package/chia-daemon)
 import { createChiaConnection, createChiaConnectionFromConfig } from 'chia-service-connector';
 import { ChiaDaemon, ChiaHttps } from 'chia-daemon';
 
-const daemonConnection = connector.createChiaConnection("daemon");
+const daemonConnection = createChiaConnection("daemon");
 const daemon = new ChiaDaemon(daemonConnection);
 await demon.connect();
 console.log(await daemon.services.full_node.get_blockchain_state())
 
-const walletConnection = connector.createChiaConnectionFromConfig("wallet");
+const walletConnection = createChiaConnectionFromConfig("wallet");
 const wallet = new ChiaHttps(walletConnection);
 console.log(await wallet.get_wallet_balance({ wallet_id: 1}))
 ```
