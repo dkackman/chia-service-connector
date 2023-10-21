@@ -4,5 +4,9 @@
         "lib/",
         "tests/"
     ],
-    "version": "0.0.3"
+    "version": "0.0.3",
+    "devDependencies": {
+        "eslint": "^8.52.0",
+        "jshint": "^2.13.6"
+    }
 }

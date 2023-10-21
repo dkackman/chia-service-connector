@@ -68,7 +68,6 @@ function createChiaConnectionFromConfig(
     sectionName,
     configFilePath = path.resolve(`${getChiaRoot()}/config/config.yaml`)
 ) {
-    const x = sectionName in ServiceNames;
     if (
         sectionName !== "ui" &&
         sectionName !== "daemon" &&
