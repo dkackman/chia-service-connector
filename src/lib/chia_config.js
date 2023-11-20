@@ -54,7 +54,6 @@ function getConnectionFromConfig(sectionName, configFilePath) {
 }
 
 function readConfigFile(configFilePath) {
-    // respect the users config file path if provided or find it in the default location
     return yaml.load(fs.readFileSync(configFilePath, "utf8"));
 }
 
